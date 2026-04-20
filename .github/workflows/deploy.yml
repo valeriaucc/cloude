@@ -1,0 +1,35 @@
+name: Deploy Lambda RDS
+
+on:
+  push:
+    branches:
+      - main  # Se activa cuando haces push a la rama principal
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar credenciales de AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # Verifica que tu Lambda esté en us-east-1
+
+      - name: Instalar dependencias
+        # Esto asegura que las librerías como mysql2 se incluyan en el despliegue
+        run: npm install 
+
+      - name: Crear paquete ZIP
+        # Empaquetamos el index.js y la carpeta node_modules
+        # Excluimos archivos innecesarios para que el zip sea ligero
+        run: zip -r function.zip index.js node_modules
+
+      - name: Desplegar en Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name Lambda-RDS \
+            --zip-file fileb://function.zip
