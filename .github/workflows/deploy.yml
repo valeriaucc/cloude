@@ -23,6 +23,8 @@ jobs: #la lista de tareas.
         # Esto asegura que las librerías como mysql2 se incluyan en el despliegue
         run: npm install  #Ejecuta el comando para descargar las librerías necesarias (como mysql2). Esto crea la carpeta node_modules dentro de la computadora de GitHub.
 
+//perro
+
       - name: Crear paquete ZIP
         # Empaquetamos el index.js y la carpeta node_modules
         # Excluimos archivos innecesarios para que el zip sea ligero
