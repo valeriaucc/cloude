@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 // Configuración de la base de datos (se recomienda usar Variables de Entorno)
 const dbConfig = {
     // cambiar el host
-    host: process.env.DB_HOST || 'database.cwjq08eoks4x.us-east-1.rds.amazonaws.com',
+    host: process.env.DB_HOST || 'database-3.c09kco2kuu18.us-east-1.rds.amazonaws.com',
     user: process.env.DB_USER || 'admin',
     password: process.env.DB_PASSWORD || '12345678',
     database: process.env.DB_NAME || 'databaseLambda',
@@ -11,6 +11,7 @@ const dbConfig = {
 };
 
 // Crear el pool de conexiones fuera del handler para reutilizarlo
+// subiendo proceso como se debe xd
 let pool;
 // cloud computing!!!!
 exports.handler = async (event) => {
@@ -127,13 +128,13 @@ exports.handler = async (event) => {
 //     "Statement": [
 //         {
 //             "Effect": "Allow",
-//             "Action": [
-//                 "lambda:UpdateFunctionCode"
-//             ],
-//             "Resource": "arn:aws:lambda:us-east-1:xxxxxxxxxxxx:function:NOMBREDETULAMBDA"
-//         }
-//     ]
-// }
+//            "Action": [
+//                "lambda:UpdateFunctionCode"
+ //          ],
+  //         "Resource": "arn:aws:lambda:us-east-1:xxxxxxxxxxxx:function:NOMBREDETULAMBDA"
+ //        }
+  //   ]
+//}
 
 // 1. eliminar base de datos 
 // 2. Lambda -> Quitar la VPC asociada a la funcion Lambda
